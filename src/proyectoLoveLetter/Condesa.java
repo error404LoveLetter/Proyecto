@@ -7,8 +7,8 @@ public class Condesa extends Carta{
 		super(nombre,fuerza,descripcion);
 	}
 	
-	public void efecto(Jugador j)
+	public void efecto(Jugador esteJugador)
 	{
-		
+		//no hace nadaaa
 	}
 }

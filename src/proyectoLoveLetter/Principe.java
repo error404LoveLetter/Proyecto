@@ -9,6 +9,7 @@ public class Principe extends Carta{
 	
 	public void efecto(Jugador j)
 	{
-		
+		Jugador otroJugador = ControladorDeJugada.SeleccionarJugador(true);
+		otroJugador.descartarMano();
 	}
 }

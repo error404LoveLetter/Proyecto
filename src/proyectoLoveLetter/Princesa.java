@@ -7,8 +7,9 @@ public class Princesa extends Carta{
 		super(nombre,fuerza,descripcion);
 	}
 	
-	public void efecto(Jugador j)
+	public void efecto(Jugador esteJugador)
 	{
-		
+		System.out.println("Has dejado a la princesa...");
+		ControladorDeJugada.eliminarJugador(esteJugador);
 	}
 }

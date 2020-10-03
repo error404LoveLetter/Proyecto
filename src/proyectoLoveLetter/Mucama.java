@@ -7,8 +7,9 @@ public class Mucama extends Carta{
 		super(nombre,fuerza,descripcion);
 	}
 	
-	public void efecto(Jugador j)
+	public void efecto(Jugador esteJugador)
 	{
-		
+		System.out.println("El jugador tiene inmunidad por un turno");
+		esteJugador.setEstaProtegido(true);
 	}
 }
