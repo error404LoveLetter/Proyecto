@@ -20,8 +20,7 @@ public class ControladorDeJugada {
 		carta.efecto(jugador);
 	}
 
-	public static void desactivarEfecto() {
-		
+	public static void desactivarEfecto() {		
 	}
 
 }
