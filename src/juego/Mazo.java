@@ -1,6 +1,16 @@
-package proyectoLoveLetter;
+package juego;
 
 import java.util.Stack;
+
+import cartas.Baron;
+import cartas.Carta;
+import cartas.Condesa;
+import cartas.Guardia;
+import cartas.Mucama;
+import cartas.Princesa;
+import cartas.Principe;
+import cartas.Rey;
+import cartas.Sacerdote;
 
 public class Mazo {
 	private Stack<Carta> pilaDeCartas;
@@ -20,7 +30,6 @@ public class Mazo {
 									    new Rey(),
 									    new Condesa(),
 									    new Princesa()};
-	
 	private boolean mazoVacio = false;
 	
 	public Mazo() {
@@ -39,13 +48,6 @@ public class Mazo {
 	}
 	
 	public void mezclar() {
-//		List<Carta> cartas = new LinkedList<Carta>();
-//		for (Carta carta : cartasActuales) {
-//			cartas.add(carta);
-//		}
-//		Collections.shuffle(cartas);
-		
-		////////////////////// OTRA FORMA ////////////////////////
 		Carta cartaAux;
 		int posAleatoria = (int) Math.random()*vecCartas.length;
 		

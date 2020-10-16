@@ -1,4 +1,7 @@
-package proyectoLoveLetter;
+package cartas;
+
+import juego.ControladorDeJugada;
+import juego.Jugador;
 
 public class Principe extends Carta {
 
@@ -11,7 +14,7 @@ public class Principe extends Carta {
 		efectoInterno(otroJugador);
 	}
 
-	public void efectoInterno(Jugador otroJugador) {
+	private void efectoInterno(Jugador otroJugador) {
 		otroJugador.descartarMano();
 		if(Jugador.getRondaActual().getMazo().isMazoVacio() == false)
 			otroJugador.agregarCartaAMano(Jugador.getRondaActual().getMazo().sacarDePila());

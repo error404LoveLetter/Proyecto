@@ -1,4 +1,4 @@
-package proyectoLoveLetter;
+package cartas;
 
 public enum CrearCarta {
 	GUARDIA,

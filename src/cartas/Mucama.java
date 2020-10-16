@@ -1,4 +1,6 @@
-package proyectoLoveLetter;
+package cartas;
+
+import juego.Jugador;
 
 public class Mucama extends Carta{
 	

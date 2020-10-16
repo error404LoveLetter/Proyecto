@@ -1,4 +1,6 @@
-package proyectoLoveLetter;
+package cartas;
+
+import juego.Jugador;
 
 public abstract class Carta {
 	static protected String nombres[] = { 

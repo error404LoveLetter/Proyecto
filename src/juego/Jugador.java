@@ -1,7 +1,12 @@
-package proyectoLoveLetter;
+package juego;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import cartas.Carta;
+import cartas.Condesa;
+import cartas.Principe;
+import cartas.Rey;
 
 public class Jugador {
 	private static Ronda rondaActual;
@@ -33,9 +38,8 @@ public class Jugador {
 		if (isTurno()) {
 			int opcionElegida;
 			Carta cartaRemovida;
-			this.estaProtegido = false; // seteo que no esta protegido
 
-			opcionElegida = elegirCarta();
+			opcionElegida = elegirCartaDeMano();
 
 			cartaRemovida = mano.get(opcionElegida - 1);
 			mano.remove(opcionElegida - 1);
@@ -47,7 +51,7 @@ public class Jugador {
 		return null;
 	}
 
-	private int elegirCarta() { //ESTO VA PRIVADO
+	private int elegirCartaDeMano() { //ESTO VA PRIVADO
 		int opcionElegida;
 
 		if (mano.contains(new Condesa()) && (mano.contains(new Rey()) || mano.contains(new Principe())))
@@ -62,9 +66,9 @@ public class Jugador {
 		return opcionElegida;
 	}
 	
-	public int elegirCartaPrueba()
+	public int elegirCartaDeManoPrueba()
 	{
-		return elegirCarta();
+		return elegirCartaDeMano();
 	}
 
 	public void agregarCartaAMano(Carta nuevaCarta) {
@@ -81,21 +85,17 @@ public class Jugador {
 		getRondaActual().jugadorSeRinde(this);
 	}
 
-//	public List<Carta> obMano() {
-//		return this.mano;
-//	}
-
 	public List<Carta> getMano() {
 		if (this.mano.size() != 0)
 			return this.mano;
 		return null;
 	}
 
-	public void setMano(Carta nuevaMano) {
-		if (mano.isEmpty() != true)
-			mano.remove(0);
-		mano.add(nuevaMano);
-	}
+//	public void setMano(Carta nuevaMano) {
+//		if (mano.isEmpty() != true)
+//			mano.remove(0);
+//		mano.add(nuevaMano);
+//	}
 
 	@Override
 	public String toString() {

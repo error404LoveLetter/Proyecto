@@ -1,4 +1,4 @@
-package proyectoLoveLetter;
+package juego;
 
 import java.util.LinkedList;
 
@@ -15,8 +15,6 @@ public final class ControladorDeJugada {
 	}
 
 	public static Jugador seleccionarJugador(boolean hayAutoseleccion) {
-		
-		
 		Jugador jugadorElegido = null;
 		LinkedList<Jugador> jugadoresValidos = depurarSeleccionDeJugadores(hayAutoseleccion);
 		int numJugadorElegido,

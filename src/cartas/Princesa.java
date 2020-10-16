@@ -1,4 +1,7 @@
-package proyectoLoveLetter;
+package cartas;
+
+import juego.ControladorDeJugada;
+import juego.Jugador;
 
 public class Princesa extends Carta{
 	

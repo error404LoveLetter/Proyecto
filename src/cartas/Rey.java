@@ -1,4 +1,7 @@
-package proyectoLoveLetter;
+package cartas;
+
+import juego.ControladorDeJugada;
+import juego.Jugador;
 
 public class Rey extends Carta {
 
@@ -11,10 +14,12 @@ public class Rey extends Carta {
 		efectoInterno(esteJugador, otroJugador);
 	}
 
-	public void efectoInterno(Jugador esteJugador, Jugador otroJugador) {
+	private void efectoInterno(Jugador esteJugador, Jugador otroJugador) {
 		Carta manoIntercambio = esteJugador.getMano().get(0);
-		esteJugador.setMano(otroJugador.getMano().get(0));
-		otroJugador.setMano(manoIntercambio);
+		esteJugador.getMano().remove(0);
+		esteJugador.agregarCartaAMano(otroJugador.getMano().get(0));
+		otroJugador.getMano().remove(0);
+		otroJugador.agregarCartaAMano(manoIntercambio);
 		System.out.println("Manos intercambiadas");
 	}
 	
