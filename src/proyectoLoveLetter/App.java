@@ -1,18 +1,24 @@
 package proyectoLoveLetter;
 
+import java.util.LinkedList;
+
+
 public class App {
 	
-//	public static void main(String[] args) {
-//		
-//		Jugador j1 = new Jugador(), 
-//				j2 = new Jugador();
-//		Carta[] mano = {CrearCarta.crearCarta(1)};
-//		j1.setMano(mano);
-//		Carta[] mano2 = {CrearCarta.crearCarta(6)};
-//		j2.setMano(mano2);
-//		
-//		j2.getMano()[0].efecto(j1);
-//		System.out.println(j2.getMano()[0].getNombre());
-//		System.out.println(j1.getMano()[0].getNombre());
-//	}
+	public static void main(String[] args) {
+		LinkedList <Jugador> jugadores = new LinkedList<Jugador>();
+//		Carta guardia = new Guardia();
+//		Carta baron = new Baron();
+		Jugador j1 = new Jugador(1, "Carlos"), 
+				j2 = new Jugador(2, "Diego");
+		jugadores.add(j1);
+		jugadores.add(j2);
+		/*Ronda r = new Ronda(p);
+		
+		j1.agregarCartaAMano(guardia);
+		j2.agregarCartaAMano(baron);
+		j1.jugarCarta();*/
+		Partida p = new Partida(jugadores,2);
+		System.out.println("El ganador es: " + p.jugarPartida());
+	}
 }

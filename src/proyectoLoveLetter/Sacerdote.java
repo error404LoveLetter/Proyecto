@@ -2,14 +2,24 @@ package proyectoLoveLetter;
 
 public class Sacerdote extends Carta{
 	
-	public Sacerdote(String nombre, int fuerza, String descripcion)
+	public Sacerdote()
 	{
-		super(nombre,fuerza,descripcion);
+		super(CrearCarta.SACERDOTE);
 	}
 	
 	public void efecto(Jugador esteJugador)
 	{
-		Jugador otroJugador = ControladorDeJugada.SeleccionarJugador(false);
-		System.out.println("Carta del otro jugador: " + otroJugador.getMano()[0].getNombre());
+		Jugador otroJugador = ControladorDeJugada.seleccionarJugador(false);
+		efectoInterno(otroJugador);
+	}
+	
+	private String efectoInterno(Jugador otroJugador)
+	{
+		return "Carta del otro jugador: " + otroJugador.getMano().get(0).getNombre();
+	}
+	
+	public String getEfectoInternoPrueba(Jugador otroJugador)
+	{
+		return efectoInterno(otroJugador);
 	}
 }

@@ -1,4 +1,4 @@
-package proyecto;
+package proyectoLoveLetter;
 
 import java.util.LinkedList;
 
@@ -7,69 +7,110 @@ public class Ronda {
 	Partida datosPartida;
 	Mazo mazo;
 	LinkedList<Jugador> jugadoresDeRonda;
-
+	Carta cartaBocaAbajo;
+	
 	public Ronda(Partida partida) {
 		this.datosPartida = partida;
-		this.mazo = new Mazo();
-		iniciarRonda();
+		this.mazo = new Mazo(); // CREA Y MEZCLA EL MAZO
+		Jugador.setRondaActual(this);
+		
+		for(Jugador jugador : datosPartida.getJugadores())
+			jugadoresDeRonda.add(jugador);
 	}
 
-	private void iniciarRonda() {
-		mazo.mezclar();
+	public Ronda(LinkedList<Jugador> jugadoresDePrueba, Mazo mazoDePrueba) {
+		datosPartida = null;
+		mazo = mazoDePrueba;
+		jugadoresDeRonda = jugadoresDePrueba;
+		Jugador.setRondaActual(this);
+	}
+
+	public Jugador jugar() {
+		Jugador jugadorActual;
+
 		ponerCartaBocaAbajo();
-		jugadoresDeRonda = datosPartida.jugadores;
-		for (Jugador jugador : datosPartida.jugadores) {
-			ControladorDeJugada.repartirCarta(mazo, jugador);
+		
+		for (Jugador jugador : jugadoresDeRonda)  
+			jugador.agregarCartaAMano(mazo.sacarDePila());
+			
+
+		while (jugadoresDeRonda.size() != 1 && mazo.isMazoVacio() == false) {
+			jugadorActual = determinarSiguienteJugador();
+			turno(jugadorActual);
+			finTurno(jugadorActual);
 		}
-		turno(determinarSiguienteJugador());
+		return finalizarRonda();
 	}
 
-	private void turno(Jugador jugador) {
-		jugador.setTurno(1);
-		ControladorDeJugada.repartirCarta(mazo, jugador);
+	private void turno(Jugador jugadorActual) {
+		jugadorActual.setTurno(true);
+		System.out.println("Es el turno del jugador " + jugadorActual.getNombre());
+		jugadorActual.agregarCartaAMano(mazo.sacarDePila());
+		jugadorActual.jugarCarta(); // DEVUELVE UNA CARTA
 	}
 
-	private void finTurno(Jugador jugador) {
-		jugador.setTurno(0);
-		turno(determinarSiguienteJugador());
+	public void finTurno(Jugador jugador) {
+		jugador.setTurno(false);
 	}
 
 	public Jugador determinarSiguienteJugador() {
-		if(jugadoresDeRonda.size()==1)//Tambien deberia preguntar si el mazo esta vacio
-			finalizarRonda();
 		Jugador jugadorActual;
-		jugadorActual = datosPartida.jugadores.getFirst();
-		datosPartida.jugadores.remove();
-		datosPartida.jugadores.add(jugadorActual);
+		jugadorActual = jugadoresDeRonda.getFirst();
+		jugadoresDeRonda.removeFirst();
+		jugadoresDeRonda.add(jugadorActual);
 		return jugadorActual;
-
 	}
 
-	public void finalizarRonda() {
+	public Jugador finalizarRonda() {
 		Jugador ganador = jugadoresDeRonda.getFirst();
-		for (Jugador jugador : jugadoresDeRonda) {
-			if (ganador.mano[0].valor < jugador.mano[0].valor)
-				ganador = jugador;
-			else if (ganador.mano[0].valor == jugador.mano[0].valor)
-				if (ganador.getCantidadDescartadas() < jugador.getCantidadDescartadas())
+
+		if (jugadoresDeRonda.size() != 1) {
+			for (Jugador jugador : jugadoresDeRonda) {
+
+				if (jugador.getMano().get(0).getFuerza() > ganador.getMano().get(0).getFuerza())
 					ganador = jugador;
+				else if (ganador.getMano().get(0).getFuerza() == jugador.getMano().get(0).getFuerza()
+						&& jugador.getCantidadDeCartasDescartadas() > ganador.getCantidadDeCartasDescartadas())
+					ganador = jugador;
+
+			}
 		}
 		System.out.println(ganador);
-		ganador.sumarPunto();
+		return ganador;
 	}
 	
-	public void jugadorSeRinde(Jugador jugador)
-	{
-		sacarJugadorDeRonda(jugador);
-		datosPartida.sacarJugador(jugador);
+	private void ponerCartaBocaAbajo() {
+		cartaBocaAbajo = this.mazo.sacarDePila();
+	}
+
+	public void jugadorSeRinde(Jugador jugadorRendido) {
+		sacarJugadorDeRonda(jugadorRendido);
+		datosPartida.sacarJugador(jugadorRendido);
 	}
 
 	public void sacarJugadorDeRonda(Jugador jugadorASacar) {
 		jugadoresDeRonda.remove(jugadorASacar);
 	}
+
+	public LinkedList<Jugador> getJugadoresDeRonda() {
+		return this.jugadoresDeRonda;
+	}
+
+	public Mazo getMazo() {
+		return mazo;
+	}
+
+	public Carta getCartaBocaAbajo() {
+		return cartaBocaAbajo;
+	}
 	
-	private void ponerCartaBocaAbajo() {
-		System.out.println(mazo.sacarDePila());
+	public void jugarDePrueba() {
+		ponerCartaBocaAbajo();
+	}
+
+	public void setCartaBocaAbajo(Carta carta)//SOLO PARA TESTS
+	{
+		this.cartaBocaAbajo=carta;
 	}
 
 }

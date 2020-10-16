@@ -2,9 +2,9 @@ package proyectoLoveLetter;
 
 public class Mucama extends Carta{
 	
-	public Mucama(String nombre, int fuerza, String descripcion)
+	public Mucama()
 	{
-		super(nombre,fuerza,descripcion);
+		super(CrearCarta.MUCAMA);
 	}
 	
 	public void efecto(Jugador esteJugador)

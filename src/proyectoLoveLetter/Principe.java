@@ -1,15 +1,25 @@
 package proyectoLoveLetter;
 
-public class Principe extends Carta{
-	
-	public Principe(String nombre, int fuerza, String descripcion)
-	{
-		super(nombre,fuerza,descripcion);
+public class Principe extends Carta {
+
+	public Principe() {
+		super(CrearCarta.PRINCIPE);
+	}
+
+	public void efecto(Jugador esteJugador) {
+		Jugador otroJugador = ControladorDeJugada.seleccionarJugador(true);
+		efectoInterno(otroJugador);
+	}
+
+	public void efectoInterno(Jugador otroJugador) {
+		otroJugador.descartarMano();
+		if(Jugador.getRondaActual().getMazo().isMazoVacio() == false)
+			otroJugador.agregarCartaAMano(Jugador.getRondaActual().getMazo().sacarDePila());
+		else
+			otroJugador.agregarCartaAMano(Jugador.getRondaActual().getCartaBocaAbajo());
 	}
 	
-	public void efecto(Jugador j)
-	{
-		Jugador otroJugador = ControladorDeJugada.SeleccionarJugador(true);
-		otroJugador.descartarMano();
+	public void getEfectoInternoPrueba(Jugador otroJugador) {
+		efectoInterno(otroJugador);
 	}
 }

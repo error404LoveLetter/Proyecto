@@ -2,14 +2,14 @@ package proyectoLoveLetter;
 
 public class Princesa extends Carta{
 	
-	public Princesa(String nombre, int fuerza, String descripcion)
+	public Princesa()
 	{
-		super(nombre,fuerza,descripcion);
+		super(CrearCarta.PRINCESA);
 	}
 	
 	public void efecto(Jugador esteJugador)
 	{
 		System.out.println("Has dejado a la princesa...");
-		ControladorDeJugada.eliminarJugador(esteJugador);
+		ControladorDeJugada.eliminarJugadorDeRonda(esteJugador);
 	}
 }
