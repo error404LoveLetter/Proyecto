@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 
 import java.util.LinkedList;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import cartas.Carta;
@@ -20,12 +21,16 @@ import juego.Ronda;
 
 public class PruebaDeJuego {
 
-	// ESTO DEBERIA HACERSE EN UN @Before
-	Jugador j1 = new Jugador(1, "Lucas");
-	Jugador j2 = new Jugador(2, "Agustin");
-	Jugador j3 = new Jugador(3, "Matias");
-	Jugador j4 = new Jugador(4, "Axel");
-	
+	Jugador j1, j2, j3, j4;
+
+	@Before
+	public void setUp() {
+		j1 = new Jugador(1, "Lucas");
+		j2 = new Jugador(2, "Agustin");
+		j3 = new Jugador(3, "Matias");
+		j4 = new Jugador(4, "Axel");
+	}
+		
 	@Test
 	public void caso01SeleccionaBienCuandoQuedanUnJugadorElegible() {
 		LinkedList<Jugador> jugadoresDePrueba = new LinkedList<Jugador>();

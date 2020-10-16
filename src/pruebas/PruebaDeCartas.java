@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.LinkedList;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import cartas.Baron;
@@ -21,15 +22,15 @@ import juego.Ronda;
 
 public class PruebaDeCartas {
 
-	// ESTO DEBERIA HACERSE EN UN @Before
-	Jugador j1 = new Jugador(1, "Lucas");
-	Jugador j2 = new Jugador(2, "Agustin");
-	Jugador j3 = new Jugador(3, "Matias");
-	Jugador j4 = new Jugador(4, "Axel");
-	
-//	@AfterClass
-//	public static void tearDownAfterClass() throws Exception {
-//	}
+	Jugador j1, j2, j3, j4;
+
+	@Before
+	public void setUp() {
+		j1 = new Jugador(1, "Lucas");
+		j2 = new Jugador(2, "Agustin");
+		j3 = new Jugador(3, "Matias");
+		j4 = new Jugador(4, "Axel");
+	}
 
 	@Test
 	public void caso01GuardiaSeleccionaLaCartaIncorrecta() {
@@ -44,7 +45,7 @@ public class PruebaDeCartas {
 
 		Ronda rondaDePrueba = new Ronda(jugadoresDePrueba, null);
 		Guardia guardiaPrueba = new Guardia();
-		
+
 		guardiaPrueba.getEfectoInternoPrueba(j1, j2, 6);
 
 		assertEquals(2, rondaDePrueba.getJugadoresDeRonda().size());
@@ -63,7 +64,7 @@ public class PruebaDeCartas {
 		jugadoresDePrueba.add(j2);
 
 		Ronda rondaDePrueba = new Ronda(jugadoresDePrueba, null);
-		
+
 		Guardia guardiaPrueba = new Guardia();
 		guardiaPrueba.getEfectoInternoPrueba(j1, j2, 7);
 
@@ -111,7 +112,7 @@ public class PruebaDeCartas {
 		jugadoresDePrueba.add(j2);
 
 		Ronda rondaDePrueba = new Ronda(jugadoresDePrueba, new Mazo());
-		
+
 		rondaDePrueba.getMazo().setMazoVacio(true);
 		rondaDePrueba.setCartaBocaAbajo(new Rey());
 		Jugador.setRondaActual(rondaDePrueba);
@@ -137,56 +138,56 @@ public class PruebaDeCartas {
 		j1.agregarCartaAMano(new Principe());
 		j1.agregarCartaAMano(new Condesa());
 		j2.agregarCartaAMano(new Guardia());
-		
+
 		assertEquals(j1.getMano().indexOf(new Condesa()) + 1, j1.elegirCartaDeManoPrueba());
 	}
-	
+
 	@Test
 	public void caso08CondesaConReyPrimero() {
 		j1.agregarCartaAMano(new Rey());
 		j1.agregarCartaAMano(new Condesa());
 		j2.agregarCartaAMano(new Guardia());
-		
+
 		assertEquals(j1.getMano().indexOf(new Condesa()) + 1, j1.elegirCartaDeManoPrueba());
 	}
-	
+
 	@Test
 	public void caso09CondesaConPrincipeSegundo() {
 		j1.agregarCartaAMano(new Condesa());
 		j1.agregarCartaAMano(new Principe());
 		j2.agregarCartaAMano(new Guardia());
-		
+
 		assertEquals(j1.getMano().indexOf(new Condesa()) + 1, j1.elegirCartaDeManoPrueba());
 	}
-	
+
 	@Test
 	public void caso10CondesaConReySegundo() {
 		j1.agregarCartaAMano(new Condesa());
 		j1.agregarCartaAMano(new Rey());
 		j2.agregarCartaAMano(new Guardia());
-		
+
 		assertEquals(j1.getMano().indexOf(new Condesa()) + 1, j1.elegirCartaDeManoPrueba());
 	}
 
 	@Test
-	public void caso11Princesa() { 
+	public void caso11Princesa() {
 		LinkedList<Jugador> jugadoresDePrueba = new LinkedList<Jugador>();
 		j1.agregarCartaAMano(new Princesa());
 		j2.agregarCartaAMano(new Guardia());
 		jugadoresDePrueba.add(j1);
 		jugadoresDePrueba.add(j2);
-		
+
 		Ronda rondaDePrueba = new Ronda(jugadoresDePrueba, null);
 		j1.getMano().get(0).efecto(j1);
-		assertEquals(1,rondaDePrueba.getJugadoresDeRonda().size());
+		assertEquals(1, rondaDePrueba.getJugadoresDeRonda().size());
 	}
 
 	@Test
 	public void caso12Sacerdote() {
 		j1.agregarCartaAMano(new Baron());
 		Sacerdote sacerdotePrueba = new Sacerdote();
-		
-		assertEquals("Carta del otro jugador: Baron",sacerdotePrueba.getEfectoInternoPrueba(j1));
+
+		assertEquals("Carta del otro jugador: Baron", sacerdotePrueba.getEfectoInternoPrueba(j1));
 	}
 
 	@Test
@@ -194,10 +195,10 @@ public class PruebaDeCartas {
 		LinkedList<Jugador> jugadoresDePrueba = new LinkedList<Jugador>();
 		j1.agregarCartaAMano(new Sacerdote());
 		j2.agregarCartaAMano(new Guardia());
-		
+
 		jugadoresDePrueba.add(j1);
 		jugadoresDePrueba.add(j2);
-		
+
 		Baron baronPrueba = new Baron();
 		Ronda rondaDePrueba = new Ronda(jugadoresDePrueba, null);
 		baronPrueba.getEfectoInternoPrueba(j1, j2);
@@ -209,30 +210,29 @@ public class PruebaDeCartas {
 		LinkedList<Jugador> jugadoresDePrueba = new LinkedList<Jugador>();
 		j1.agregarCartaAMano(new Sacerdote());
 		j2.agregarCartaAMano(new Princesa());
-	
+
 		jugadoresDePrueba.add(j1);
 		jugadoresDePrueba.add(j2);
-		
+
 		Baron baronPrueba = new Baron();
 		Ronda rondaDePrueba = new Ronda(jugadoresDePrueba, null);
 		baronPrueba.getEfectoInternoPrueba(j1, j2);
 		assertFalse(rondaDePrueba.getJugadoresDeRonda().contains(j1));
 	}
-	
+
 	@Test
 	public void caso15BaronEmpate() {
 		LinkedList<Jugador> jugadoresDePrueba = new LinkedList<Jugador>();
 		j1.agregarCartaAMano(new Sacerdote());
 		j2.agregarCartaAMano(new Sacerdote());
-	
+
 		jugadoresDePrueba.add(j1);
 		jugadoresDePrueba.add(j2);
-		
+
 		Baron baronPrueba = new Baron();
 		Ronda rondaDePrueba = new Ronda(jugadoresDePrueba, null);
 		baronPrueba.getEfectoInternoPrueba(j1, j2);
 		assertFalse(rondaDePrueba.getJugadoresDeRonda().contains(j2));
-	}	
-
+	}
 
 }
