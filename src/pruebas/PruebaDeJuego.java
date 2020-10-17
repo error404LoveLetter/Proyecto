@@ -123,7 +123,6 @@ public class PruebaDeJuego {
 		assertEquals(1, vectorDeOcurrencias[CrearCarta.REY.ordinal()]);
 		assertEquals(1, vectorDeOcurrencias[CrearCarta.CONDESA.ordinal()]);
 		assertEquals(1, vectorDeOcurrencias[CrearCarta.PRINCESA.ordinal()]);
-
 	}
 
 	@Test
@@ -272,9 +271,8 @@ public class PruebaDeJuego {
 		jugadoresDePrueba.add(j3);
 		jugadoresDePrueba.add(j4);
 
-		Partida p = new Partida(jugadoresDePrueba, 5);
-		
-		p.jugarRondaPruebaV1();
+		Ronda rondaDePrueba = new Ronda(jugadoresDePrueba,new Mazo());
+		rondaDePrueba.repartirCartasInicialesPrueba();
 		
 		assertEquals(1, j1.getMano().size()); 
 		assertEquals(1, j2.getMano().size()); 
@@ -290,8 +288,9 @@ public class PruebaDeJuego {
 		jugadoresDePrueba.add(j1);
 		jugadoresDePrueba.add(j2);
 		
-		Partida p = new Partida(jugadoresDePrueba, 5);
-		p.jugarRondaPruebaV2();
+		Ronda rondaDePrueba = new Ronda(jugadoresDePrueba,new Mazo());
+		rondaDePrueba.repartirCartasInicialesPrueba();
+		rondaDePrueba.darTurnoPrueba(j1);
 		
 		assertEquals(2, j1.getMano().size());	
 	}
@@ -303,13 +302,14 @@ public class PruebaDeJuego {
 		jugadoresDePrueba.add(j1);
 		jugadoresDePrueba.add(j2);
 		
-		Partida partidaDePrueba = new Partida(jugadoresDePrueba, 5);
+		Ronda rondaDePrueba = new Ronda(jugadoresDePrueba,new Mazo());
+		rondaDePrueba.repartirCartasInicialesPrueba();
 		
-		partidaDePrueba.jugarRondaPruebaV3();
+		for(int i = 0; i<jugadoresDePrueba.size(); i++)
+			rondaDePrueba.darTurnoPrueba(jugadoresDePrueba.get(i));
 		
 		assertEquals(2, j1.getMano().size()); 
 		assertEquals(2, j2.getMano().size()); 
-		
 	}
 
 //	FALTA!!!
@@ -343,12 +343,11 @@ public class PruebaDeJuego {
 ////		rondaDePrueba.finalizarRonda();
 //	}
 
-	
+//	
 //	@Test
 //	public void queElGanadorDeRondaSumaUnSimboloDeAfecto() {
-//
-//		j1.setMano(new Guardia());
-//		j2.setMano(new Princesa());
+//		j1.agregarCartaAMano(new Guardia());
+//		j2.agregarCartaAMano(new Princesa());
 //		
 //		LinkedList <Jugador> jugadoresDePrueba= new LinkedList<Jugador>();
 //		jugadoresDePrueba.add(j1);
@@ -357,11 +356,7 @@ public class PruebaDeJuego {
 //		Ronda rondaDePrueba = new Ronda(jugadoresDePrueba, null);
 //		
 //		assertEquals(0, j1.getPuntos());
-//		
-//		new Guardia().efectoInterno(j1, j2, 8);
 //		Jugador jugadorGanador = rondaDePrueba.finalizarRonda();
-//		
-//		
 //		
 //		assertEquals(1, jugadorGanador.getPuntos());
 //		//no funciona porque finalizar ronda no aumenta puntos, pq lama al scanner de jugarRonda

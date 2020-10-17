@@ -25,12 +25,6 @@ public abstract class Carta {
 	private String nombre;
 	private int fuerza;
 	private String descripcion;
-	
-//	public Carta(String nombre, int fuerza, String descripcion) {
-//		this.nombre = nombre;
-//		this.fuerza = fuerza;
-//		this.descripcion = descripcion;
-//	}
 
 	public Carta(CrearCarta tipoDeCarta) {
 		this.nombre = nombres[tipoDeCarta.ordinal()];
@@ -62,7 +56,9 @@ public abstract class Carta {
 			return false;
 		return true;
 	}
-
+	
+	public abstract void efecto(Jugador j);
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -79,6 +75,4 @@ public abstract class Carta {
 	public String toString() {
 		return "Carta [nombre=" + nombre + "]";
 	}
-
-	public abstract void efecto(Jugador j);
 }

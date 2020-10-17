@@ -62,37 +62,37 @@ public class Partida {
 		return idPartida;
 	}
 	
-	// METODO AGREGADO
-	public void jugarRondaPruebaV1() {
-		Jugador ganadorDeRonda;
-		Ronda rondaActual = new Ronda(this);
-		ganadorDeRonda = rondaActual.jugarPruebaV1();
-		ganadorDeRonda.sumarPunto();
-	}
-
-	// METODO AGREGADO
-	public void jugarRondaPruebaV2() {
-		Jugador ganadorDeRonda;
-		Ronda rondaActual = new Ronda(this);
-		ganadorDeRonda = rondaActual.jugarPruebaV2();
-		ganadorDeRonda.sumarPunto();
-	}
-
-	// METODO AGREGADO
-	public void jugarRondaPruebaV3() {
-		Jugador ganadorDeRonda;
-		Ronda rondaActual = new Ronda(this);
-		ganadorDeRonda = rondaActual.jugarPruebaV3();
-		ganadorDeRonda.sumarPunto();
-	}
-
-	// METODO AGREGADO
-	public void jugarRondaPruebaV4() {
-		Jugador ganadorDeRonda;
-		Ronda rondaActual = new Ronda(this);
-		ganadorDeRonda = rondaActual.jugarPruebaV4();
-		ganadorDeRonda.sumarPunto();
-	}
+//	// METODO AGREGADO
+//	public void jugarRondaPruebaV1() {
+//		Jugador ganadorDeRonda;
+//		Ronda rondaActual = new Ronda(this);
+//		ganadorDeRonda = rondaActual.jugarPruebaV1();
+//		ganadorDeRonda.sumarPunto();
+//	}
+//
+//	// METODO AGREGADO
+//	public void jugarRondaPruebaV2() {
+//		Jugador ganadorDeRonda;
+//		Ronda rondaActual = new Ronda(this);
+//		ganadorDeRonda = rondaActual.jugarPruebaV2();
+//		ganadorDeRonda.sumarPunto();
+//	}
+//
+//	// METODO AGREGADO
+//	public void jugarRondaPruebaV3() {
+//		Jugador ganadorDeRonda;
+//		Ronda rondaActual = new Ronda(this);
+//		ganadorDeRonda = rondaActual.jugarPruebaV3();
+//		ganadorDeRonda.sumarPunto();
+//	}
+//
+//	// METODO AGREGADO
+//	public void jugarRondaPruebaV4() {
+//		Jugador ganadorDeRonda;
+//		Ronda rondaActual = new Ronda(this);
+//		ganadorDeRonda = rondaActual.jugarPruebaV4();
+//		ganadorDeRonda.sumarPunto();
+//	}
 	
 	public Jugador hayGanadorDePrueba() {
 		return hayGanador();

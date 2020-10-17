@@ -31,7 +31,7 @@ public class Ronda {
 		ponerCartaBocaAbajo();
 		repartirCartasIniciales();
 		cicloDeTurnos();
-		
+
 		return finalizarRonda();
 	}
 
@@ -39,33 +39,35 @@ public class Ronda {
 		for (Jugador jugador : jugadoresDeRonda)
 			jugador.agregarCartaAMano(mazo.sacarDePila());
 	}
-	
-	public void repartirCartasInicialesPrueba()
-	{
+
+	public void repartirCartasInicialesPrueba() {
 		repartirCartasIniciales();
 	}
-	
+
 	private void cicloDeTurnos() {
 		Jugador jugadorActual;
-		
+
 		while (jugadoresDeRonda.size() != 1 && mazo.isMazoVacio() == false) {
 			jugadorActual = determinarSigJugador();
-			turno(jugadorActual);
+			darTurno(jugadorActual);
+			jugadorActual.jugarCarta(); 
 			finTurno(jugadorActual);
 		}
 	}
-	
-	public void cicloDeTurnosPrueba()
-	{
+
+	public void cicloDeTurnosPrueba() {
 		cicloDeTurnos();
 	}
 
-	private void turno(Jugador jugadorActual) {
+	private void darTurno(Jugador jugadorActual) {
 		jugadorActual.setTurno(true);
 		jugadorActual.setEstaProtegido(false);
 		System.out.println("Es el turno del jugador " + jugadorActual.getNombre());
 		jugadorActual.agregarCartaAMano(mazo.sacarDePila());
-		jugadorActual.jugarCarta(); // DEVUELVE UNA CARTA
+	}
+	
+	public void darTurnoPrueba(Jugador jugadorActual) {
+		darTurno(jugadorActual);
 	}
 
 	public void finTurno(Jugador jugador) {
@@ -98,7 +100,7 @@ public class Ronda {
 		jugadoresDeRonda.clear();
 		return ganador;
 	}
-	
+
 	private void ponerCartaBocaAbajo() {
 		cartaBocaAbajo = this.mazo.sacarDePila();
 	}
@@ -129,12 +131,16 @@ public class Ronda {
 		this.cartaBocaAbajo = carta;
 	}
 
-	// METODO AGREGADO
-	private void turnoSinJugarCarta(Jugador jugadorActual) {
-		jugadorActual.setTurno(true);
-		System.out.println("Es el turno del jugador " + jugadorActual.getNombre());
-		jugadorActual.agregarCartaAMano(mazo.sacarDePila());
+	public void jugarDePrueba() {
+		ponerCartaBocaAbajo();
 	}
+	
+	// METODO AGREGADO
+//	private void turnoSinJugarCarta(Jugador jugadorActual) {
+//		jugadorActual.setTurno(true);
+//		System.out.println("Es el turno del jugador " + jugadorActual.getNombre());
+//		jugadorActual.agregarCartaAMano(mazo.sacarDePila());
+//	}
 
 	// METODO AGREGADO
 //	public String asignarTurnoAJugadorPrueba(Jugador jugadorActual) {
@@ -143,85 +149,81 @@ public class Ronda {
 //		return null;
 //	}
 
-	// METODO AGREGADO
-	public Jugador jugarPruebaV1() {
-		ponerCartaBocaAbajo();
-		this.jugadoresDeRonda = datosPartida.getJugadores();
-		for (Jugador jugador : datosPartida.getJugadores()) {
-			jugador.agregarCartaAMano(mazo.sacarDePila());
-		}
+//	// METODO AGREGADO
+//	public Jugador jugarPruebaV1() {
+//		ponerCartaBocaAbajo();
+//		this.jugadoresDeRonda = datosPartida.getJugadores();
+//		for (Jugador jugador : datosPartida.getJugadores()) {
+//			jugador.agregarCartaAMano(mazo.sacarDePila());
+//		}
+//
+//		return finalizarRonda();
+//	}
+//
+//	// METODO AGREGADO
+//	public Jugador jugarPruebaV2() {
+//		Jugador jugadorActual;
+//
+//		ponerCartaBocaAbajo();
+//		this.jugadoresDeRonda = datosPartida.getJugadores();
+//		for (Jugador jugador : datosPartida.getJugadores()) {
+//			jugador.agregarCartaAMano(mazo.sacarDePila());
+//		}
+//
+//		jugadorActual = determinarSigJugador();
+//		turnoSinJugarCarta(jugadorActual);
+//		finTurno(jugadorActual);
+//
+//		return finalizarRonda();
+//	}
+//
+//	// METODO AGREGADO
+//	public Jugador jugarPruebaV3() {
+//		Jugador jugadorActual;
+//
+//		ponerCartaBocaAbajo();
+//		this.jugadoresDeRonda = datosPartida.getJugadores();
+//		for (Jugador jugador : datosPartida.getJugadores()) {
+//			jugador.agregarCartaAMano(mazo.sacarDePila());
+//		}
+//
+//		for (int i = 0; i < this.jugadoresDeRonda.size(); i++) { // 1 PASADA
+//			jugadorActual = determinarSigJugador();
+//			turnoSinJugarCarta(jugadorActual);
+//			// System.out.println("Jugador: " + i + "Turno: " + jugadorActual.isTurno());
+//			finTurno(jugadorActual);
+//		}
+//
+//		return finalizarRonda();
+//	}
+//
+//	// METODO AGREGADO
+//	public Jugador jugarPruebaV4() {
+//		Jugador jugadorActual;
+//
+//		ponerCartaBocaAbajo();
+//		this.jugadoresDeRonda = datosPartida.getJugadores();
+//		for (Jugador jugador : datosPartida.getJugadores()) {
+//			jugador.agregarCartaAMano(mazo.sacarDePila());
+//		}
+//
+//		int pasadas = 0;
+//
+//		while (pasadas < 30) {
+//			for (int i = 0; i < this.jugadoresDeRonda.size(); i++) { // 1 PASADA
+//				jugadorActual = determinarSigJugador();
+//				turnoV4(jugadorActual);
+//				finTurno(jugadorActual);
+//			}
+//			pasadas++;
+//		}
+//
+//		return finalizarRonda();
+//	}
 
-		return finalizarRonda();
-	}
+//	private void turnoV4(Jugador jugadorActual) {
+//		jugadorActual.setTurno(true);
+//		System.out.println("Es el turno del jugador " + jugadorActual.getNombre());
+//	}
 
-	// METODO AGREGADO
-	public Jugador jugarPruebaV2() {
-		Jugador jugadorActual;
-
-		ponerCartaBocaAbajo();
-		this.jugadoresDeRonda = datosPartida.getJugadores();
-		for (Jugador jugador : datosPartida.getJugadores()) {
-			jugador.agregarCartaAMano(mazo.sacarDePila());
-		}
-
-		jugadorActual = determinarSigJugador();
-		turnoSinJugarCarta(jugadorActual);
-		finTurno(jugadorActual);
-
-		return finalizarRonda();
-	}
-
-	// METODO AGREGADO
-	public Jugador jugarPruebaV3() {
-		Jugador jugadorActual;
-
-		ponerCartaBocaAbajo();
-		this.jugadoresDeRonda = datosPartida.getJugadores();
-		for (Jugador jugador : datosPartida.getJugadores()) {
-			jugador.agregarCartaAMano(mazo.sacarDePila());
-		}
-
-		for (int i = 0; i < this.jugadoresDeRonda.size(); i++) { // 1 PASADA
-			jugadorActual = determinarSigJugador();
-			turnoSinJugarCarta(jugadorActual);
-			// System.out.println("Jugador: " + i + "Turno: " + jugadorActual.isTurno());
-			finTurno(jugadorActual);
-		}
-
-		return finalizarRonda();
-	}
-
-	// METODO AGREGADO
-	public Jugador jugarPruebaV4() {
-		Jugador jugadorActual;
-
-		ponerCartaBocaAbajo();
-		this.jugadoresDeRonda = datosPartida.getJugadores();
-		for (Jugador jugador : datosPartida.getJugadores()) {
-			jugador.agregarCartaAMano(mazo.sacarDePila());
-		}
-
-		int pasadas = 0;
-
-		while (pasadas < 30) {
-			for (int i = 0; i < this.jugadoresDeRonda.size(); i++) { // 1 PASADA
-				jugadorActual = determinarSigJugador();
-				turnoV4(jugadorActual);
-				finTurno(jugadorActual);
-			}
-			pasadas++;
-		}
-
-		return finalizarRonda();
-	}
-	
-	private void turnoV4(Jugador jugadorActual) {
-		jugadorActual.setTurno(true);
-		System.out.println("Es el turno del jugador " + jugadorActual.getNombre());
-		}
-
-	public void jugarDePrueba() {
-		ponerCartaBocaAbajo();
-	}
-	
 }
