@@ -5,8 +5,7 @@ import java.util.List;
 
 import cartas.Carta;
 import cartas.Condesa;
-import cartas.Principe;
-import cartas.Rey;
+import cartas.CrearCarta;
 
 public class Jugador {
 	private static Ronda rondaActual;
@@ -24,7 +23,7 @@ public class Jugador {
 		this.nombre = nombre;
 	}
 
-	public Jugador(String nombreDePrueba, boolean estaProtegidoDePrueba, boolean turnoDePrueba, int puntosDePrueba,
+	public Jugador(String nombreDePrueba, boolean estaProtegidoDePrueba, boolean turnoDePrueba, int puntosDePrueba, //CONSTRUCTOR DE PRUEBA
 			int contadorDeCartasDescartadasDePrueba) {
 		this.nombre = nombreDePrueba;
 		this.estaProtegido = estaProtegidoDePrueba;
@@ -51,10 +50,11 @@ public class Jugador {
 		return null;
 	}
 
-	private int elegirCartaDeMano() { //ESTO VA PRIVADO
+	private int elegirCartaDeMano() {
 		int opcionElegida;
 
-		if (mano.contains(new Condesa()) && (mano.contains(new Rey()) || mano.contains(new Principe())))
+		if (mano.contains(Mazo.vecCartas[CrearCarta.CONDESA.ordinal()]) 
+				&& (mano.contains(Mazo.vecCartas[CrearCarta.REY.ordinal()]) || mano.contains(Mazo.vecCartas[CrearCarta.PRINCIPE.ordinal()])))
 			opcionElegida = mano.indexOf(new Condesa()) + 1;
 		else
 			do {
@@ -91,6 +91,13 @@ public class Jugador {
 		return null;
 	}
 
+	public void limpiarDatos() {
+		mano.clear();
+		turno = false;
+		estaProtegido = false;
+		contadorDeCartasDescartadas = 0;
+	}
+	
 //	public void setMano(Carta nuevaMano) {
 //		if (mano.isEmpty() != true)
 //			mano.remove(0);

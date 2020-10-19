@@ -8,11 +8,14 @@ import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
 
+import cartas.Baron;
 import cartas.Carta;
 import cartas.CrearCarta;
 import cartas.Guardia;
 import cartas.Princesa;
+import cartas.Principe;
 import cartas.Rey;
+import cartas.Sacerdote;
 import juego.ControladorDeJugada;
 import juego.Jugador;
 import juego.Mazo;
@@ -261,7 +264,6 @@ public class PruebaDeJuego {
 
 		assertEquals(15, contador);
 	}
-
 	
 	@Test
 	public void caso15ReparteBienLasCartasAlIniciarLaRonda() {
@@ -277,8 +279,7 @@ public class PruebaDeJuego {
 		assertEquals(1, j1.getMano().size()); 
 		assertEquals(1, j2.getMano().size()); 
 		assertEquals(1, j3.getMano().size()); 
-		assertEquals(1, j4.getMano().size()); 
-		
+		assertEquals(1, j4.getMano().size()); 	
 	}
 	
 	@Test
@@ -311,7 +312,93 @@ public class PruebaDeJuego {
 		assertEquals(2, j1.getMano().size()); 
 		assertEquals(2, j2.getMano().size()); 
 	}
+	
+	@Test
+	public void caso18ElJugadorQueGanaLaRondaSumaUnPunto() {
+		
+		LinkedList <Jugador> jugadoresDePrueba= new LinkedList<Jugador>();
+		jugadoresDePrueba.add(j1);
+		jugadoresDePrueba.add(j2);
+		Jugador ganadorDeRonda;
+		
+//		Partida partidaDePrueba = new Partida(jugadoresDePrueba,1);
+		Ronda rondaDePrueba = new Ronda(jugadoresDePrueba, new Mazo());
+		ControladorDeJugada.eliminarJugadorDeRonda(rondaDePrueba.getJugadoresDeRonda().getFirst());
+		ganadorDeRonda = rondaDePrueba.finalizarRonda();
+		ganadorDeRonda.sumarPunto();
+		assertEquals(1,ganadorDeRonda.getPuntos());
+	}
+	
+	@Test
+	public void caso19ElJugadorGanaLaPartidaPorCantidadDePuntos() {
+		
+		LinkedList <Jugador> jugadoresDePrueba= new LinkedList<Jugador>();
+		jugadoresDePrueba.add(j1);
+		jugadoresDePrueba.add(j2);
+		Jugador ganadorDeRonda,
+				ganadorDePartida;
+		
+		Partida partidaDePrueba = new Partida(jugadoresDePrueba,1);
+		Ronda rondaDePrueba = new Ronda(partidaDePrueba);
+		ControladorDeJugada.eliminarJugadorDeRonda(rondaDePrueba.getJugadoresDeRonda().getFirst());
+		ganadorDeRonda = rondaDePrueba.finalizarRonda();
+		ganadorDeRonda.sumarPunto();
+		assertEquals(1,ganadorDeRonda.getPuntos());
+		
+		ganadorDePartida = partidaDePrueba.finalizarPartidaPrueba(partidaDePrueba.hayGanadorDePrueba());
+		assertEquals(j2,ganadorDePartida);
+	}
 
+	@Test
+	public void caso20ElJugadorGanaPorQuedarSolo() {
+		
+		LinkedList <Jugador> jugadoresDePrueba= new LinkedList<Jugador>();
+		jugadoresDePrueba.add(j1);
+		jugadoresDePrueba.add(j2);
+		Jugador ganadorDePartida;
+		
+		Partida partidaDePrueba = new Partida(jugadoresDePrueba,1);
+		@SuppressWarnings("unused")
+		Ronda rondaDePrueba = new Ronda(partidaDePrueba);
+		j2.rendirse();
+		
+		ganadorDePartida = partidaDePrueba.finalizarPartidaPrueba(partidaDePrueba.hayGanadorDePrueba());
+		assertEquals(j1,ganadorDePartida);
+	}
+
+	@Test
+	public void caso21JugadorGanaPartidaXRondas() {
+		
+		LinkedList <Jugador> jugadoresDePrueba= new LinkedList<Jugador>();
+		jugadoresDePrueba.add(j1);
+		jugadoresDePrueba.add(j2);
+		Jugador ganadorDePartida,
+				ganadorDeRonda;
+		
+		Partida partidaDePrueba = new Partida(jugadoresDePrueba,2);
+		
+		Ronda rondaDePrueba1 = new Ronda(partidaDePrueba);
+		j1.agregarCartaAMano(new Guardia());
+		j2.agregarCartaAMano(new Sacerdote());
+		
+		new Guardia().getEfectoInternoPrueba(j1, j2, 2);
+		ganadorDeRonda = rondaDePrueba1.finalizarRonda();
+		partidaDePrueba.limpiarJugadoresPrueba();
+		ganadorDeRonda.sumarPunto();
+		
+		Ronda rondaDePrueba2 = new Ronda(partidaDePrueba);
+		j1.agregarCartaAMano(new Princesa());
+		j2.agregarCartaAMano(new Principe());
+		
+		new Baron().getEfectoInternoPrueba(j1, j2);
+		ganadorDeRonda = rondaDePrueba2.finalizarRonda();
+		partidaDePrueba.limpiarJugadoresPrueba();
+		ganadorDeRonda.sumarPunto();
+		
+		ganadorDePartida = partidaDePrueba.finalizarPartidaPrueba(partidaDePrueba.hayGanadorDePrueba());
+		assertEquals(j1,ganadorDePartida);
+	}
+	
 //	FALTA!!!
 //	@Test
 //	public void queCorrenBienLosTurnos() {

@@ -22,17 +22,36 @@ public class Partida {
 	}
 
 	public Jugador jugarPartida() {
-		Jugador ganadorDePartida = null;
+		Jugador ganadorDePartida = null, ganadorDeRonda;
 		while (jugadores.size() != 1 && ganadorDePartida == null) {
-			jugarRonda();
+			ganadorDeRonda = jugarRonda();
+			limpiarJugadores();
+			ganadorDeRonda.sumarPunto();
 			ganadorDePartida = hayGanador();
 		}
 
 		sc.close();
+		return finalizarPartida(ganadorDePartida);
+	}
+
+	private void limpiarJugadores() {
+		for (Jugador jugadorActual : jugadores)
+			jugadorActual.limpiarDatos();
+	}
+
+	public void limpiarJugadoresPrueba() {
+		limpiarJugadores();
+	}
+
+	private Jugador finalizarPartida(Jugador ganadorDePartida) {
 		if (ganadorDePartida != null)
 			return ganadorDePartida;
 
 		return jugadores.getFirst();
+	}
+
+	public Jugador finalizarPartidaPrueba(Jugador ganadorDePartida) {
+		return finalizarPartida(ganadorDePartida);
 	}
 
 	private Jugador hayGanador() {
@@ -43,11 +62,11 @@ public class Partida {
 		return null;
 	}
 
-	public void jugarRonda() {
+	public Jugador jugarRonda() {
 		Jugador ganadorDeRonda;
 		Ronda rondaActual = new Ronda(this);
 		ganadorDeRonda = rondaActual.jugar();
-		ganadorDeRonda.sumarPunto();
+		return ganadorDeRonda;
 	}
 
 	public LinkedList<Jugador> getJugadores() {
@@ -61,7 +80,7 @@ public class Partida {
 	public int getIdPartida() {
 		return idPartida;
 	}
-	
+
 //	// METODO AGREGADO
 //	public void jugarRondaPruebaV1() {
 //		Jugador ganadorDeRonda;
@@ -93,7 +112,7 @@ public class Partida {
 //		ganadorDeRonda = rondaActual.jugarPruebaV4();
 //		ganadorDeRonda.sumarPunto();
 //	}
-	
+
 	public Jugador hayGanadorDePrueba() {
 		return hayGanador();
 	}

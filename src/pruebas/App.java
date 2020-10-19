@@ -1,5 +1,7 @@
 package pruebas;
 
+import juego.Mazo;
+
 public class App {
 	
 	public static void main(String[] args) {
@@ -17,5 +19,8 @@ public class App {
 		j1.jugarCarta();*/
 //		Partida p = new Partida(jugadores,2);
 //		System.out.println("El ganador es: " + p.jugarPartida());
+		Mazo mazo = new Mazo();
+		while(mazo.isMazoVacio() == false)
+			System.out.println(mazo.sacarDePila());
 	}
 }
